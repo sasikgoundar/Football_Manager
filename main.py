@@ -107,4 +107,43 @@ def insertClub():
     clubWindow.mainloop()
 
 
+# insert into agents
+def insertAgent():
+    def saveAgent():
+        cursor.execute('INSERT INTO AGENTS VALUES(?,?,?)', (aEntry0.get(), aEntry1.get(), aEntry2.get()))
+        conn.commit()
+        messagebox.showinfo("Success!", "Insertion successful!")
+        ()
+
+    agentWindow = Tk()
+    agentWindow.title("Insert Agent data")
+    agentWindow.geometry("750x750")
+    agentLabel = Label(agentWindow, text="Enter Agent details:", anchor=CENTER, font=("helvetica", 25, "bold"))
+    agentInsert = Button(agentWindow, text="INSERT", width=20, height=2, command=saveAgent, bg="white", fg="BLACK",
+                         font=("bold"))
+    agentExit = Button(agentWindow, text="BACK", width=20, height=2, command=agentWindow.destroy, fg="red", bg="black",
+                       font=("bold"))
+
+    aLabel0 = Label(agentWindow, text="Agent Name", fg="red", font=("bold"))
+    aLabel1 = Label(agentWindow, text="Nationality", fg="red", font=("bold"))
+    aLabel2 = Label(agentWindow, text="Rating", fg="red", font=("bold"))
+
+    aEntry0 = Entry(agentWindow, bd=5)
+    aEntry1 = Entry(agentWindow, bd=5)
+    aEntry2 = Entry(agentWindow, bd=5)
+
+    aLabel0.grid(row=0, column=0, padx=100, pady=10)
+    aLabel1.grid(row=1, column=0, padx=100, pady=10)
+    aLabel2.grid(row=2, column=0, padx=100, pady=10)
+
+    aEntry0.grid(row=0, column=1, pady=10)
+    aEntry1.grid(row=1, column=1, pady=10)
+    aEntry2.grid(row=2, column=1, pady=10)
+
+    agentInsert.grid(row=3, column=0, pady=50)
+    agentExit.grid(row=3, column=1, padx=50, pady=50, columnspan=2)
+
+    agentWindow.mainloop()
+
+
 
