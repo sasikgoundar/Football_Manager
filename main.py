@@ -193,3 +193,67 @@ def insertNational():
     nationalWindow.mainloop()
 
 
+# insert into players
+def insertPlayer():
+    def savePlayer():
+        cursor.execute('INSERT INTO PLAYERS VALUES(?,?,?,?,?,?,?,?,?)', (
+        pEntry0.get(), pEntry1.get(), pEntry2.get(), pEntry3.get(), pEntry4.get(), pEntry5.get(), pEntry6.get(),
+        pEntry7.get(), pEntry8.get()))
+        conn.commit()
+        messagebox.showinfo("Success!", "Insertion successful!")
+        ()
+
+    playerWindow = Tk()
+    playerWindow.title("Insert Player data")
+    playerWindow.geometry("750x750")
+    playerLabel = Label(playerWindow, text="Enter Player details:", anchor=CENTER, fg="red",
+                        font=("helvetica", 25, "bold"))
+    playerInsert = Button(playerWindow, text="INSERT", width=20, height=2, command=savePlayer, bg="white", fg="BLACK",
+                          font=("bold"))
+    playerExit = Button(playerWindow, text="BACK", width=20, height=2, command=playerWindow.destroy, fg="red",
+                        bg="black", font=("bold"))
+
+    pLabel0 = Label(playerWindow, text="First Name", fg="red", font=("bold"))
+    pLabel1 = Label(playerWindow, text="Last Name", fg="red", font=("bold"))
+    pLabel2 = Label(playerWindow, text="Nationality", fg="red", font=("bold"))
+    pLabel3 = Label(playerWindow, text="Club Name", fg="red", font=("bold"))
+    pLabel4 = Label(playerWindow, text="Age", fg="red", font=("bold"))
+    pLabel5 = Label(playerWindow, text="Years At Club", fg="red", font=("bold"))
+    pLabel6 = Label(playerWindow, text="Agent Name", fg="red", font=("bold"))
+    pLabel7 = Label(playerWindow, text="Rating", fg="red", font=("bold"))
+    pLabel8 = Label(playerWindow, text="Position", fg="red", font=("bold"))
+
+    pEntry0 = Entry(playerWindow, bd=5)
+    pEntry1 = Entry(playerWindow, bd=5)
+    pEntry2 = Entry(playerWindow, bd=5)
+    pEntry3 = Entry(playerWindow, bd=5)
+    pEntry4 = Entry(playerWindow, bd=5)
+    pEntry5 = Entry(playerWindow, bd=5)
+    pEntry6 = Entry(playerWindow, bd=5)
+    pEntry7 = Entry(playerWindow, bd=5)
+    pEntry8 = Entry(playerWindow, bd=5)
+
+    pLabel0.grid(row=0, column=0, padx=100, pady=10)
+    pLabel1.grid(row=1, column=0, padx=100, pady=10)
+    pLabel2.grid(row=2, column=0, padx=100, pady=10)
+    pLabel3.grid(row=3, column=0, padx=100, pady=10)
+    pLabel4.grid(row=4, column=0, padx=100, pady=10)
+    pLabel5.grid(row=5, column=0, padx=100, pady=10)
+    pLabel6.grid(row=6, column=0, padx=100, pady=10)
+    pLabel7.grid(row=7, column=0, padx=100, pady=10)
+    pLabel8.grid(row=8, column=0, padx=100, pady=10)
+
+    pEntry0.grid(row=0, column=1, pady=10)
+    pEntry1.grid(row=1, column=1, pady=10)
+    pEntry2.grid(row=2, column=1, pady=10)
+    pEntry3.grid(row=3, column=1, pady=10)
+    pEntry4.grid(row=4, column=1, pady=10)
+    pEntry5.grid(row=5, column=1, pady=10)
+    pEntry6.grid(row=6, column=1, pady=10)
+    pEntry7.grid(row=7, column=1, pady=10)
+    pEntry8.grid(row=8, column=1, pady=10)
+
+    playerInsert.grid(row=9, column=0, pady=30)
+    playerExit.grid(row=9, column=1, padx=50, pady=30, columnspan=2)
+    playerWindow.mainloop()
+
