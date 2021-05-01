@@ -55,7 +55,7 @@ def insertClub():
         cEntry0.get(), cEntry1.get(), cEntry2.get(), cEntry3.get(), cEntry4.get(), cEntry5.get(), cEntry6.get(),
         cEntry7.get()))
         conn.commit()
-        #messagebox.showinfo("Success!", "Insertion successful!", command=insertData())
+        messagebox.showinfo("Success!", "Insertion successful!", command=insertData())
         ()
 
     clubWindow = Tk()
@@ -257,3 +257,98 @@ def insertPlayer():
     playerExit.grid(row=9, column=1, padx=50, pady=30, columnspan=2)
     playerWindow.mainloop()
 
+#defining data disp window
+
+def insertData():
+    insertWindow = Tk()
+    insertWindow.title("Insert data")
+    insertWindow.geometry("550x550")
+    insertLabel = Label(insertWindow, text="Which table to enter data into?",anchor=CENTER,font=("helvetica",25,"bold"))
+    insertButton1 = Button(insertWindow,text="CLUBS",width=20,height=2,command=insertClub,bg="white",fg="BLACK",font=("bold"))
+    insertButton2 = Button(insertWindow,text="AGENTS",width=20,height=2,command=insertAgent,bg="white",fg="BLACK",font=("bold"))
+    insertButton3 = Button(insertWindow,text="NATIONAL TEAM",width=20,height=2,command=insertNational,bg="white",fg="BLACK",font=("bold"))
+    insertButton4 = Button(insertWindow,text="PLAYERS",width=20,height=2,command=insertPlayer,bg="white",fg="BLACK",font=("bold"))
+    insertExit = Button(insertWindow,text="BACK",width=20,height=2,command=insertWindow.destroy,bg="black",fg="red",font=("bold"))
+    insertLabel.pack(fill=X,anchor=CENTER)
+    insertButton1.pack(anchor=CENTER,pady=20)
+    insertButton2.pack(anchor=CENTER,pady=20)
+    insertButton3.pack(anchor=CENTER,pady=20)
+    insertButton4.pack(anchor=CENTER,pady=20)
+    insertExit.pack(anchor=CENTER,pady=20)
+    ()
+    insertWindow.mainloop()
+
+
+def mainPage():
+    mWindow = Tk()
+    mWindow.configure(background="white")
+    mWindow.title("Choose option")
+    mWindow.geometry("750x750")
+    MLabel1 = Label(mWindow, text="What would you like to do?", anchor=CENTER, font=("helvetica", 25, "bold"))
+    MButton1 = Button(mWindow, text="Insert data", width=10, height=2, command=insertData, bg="white", fg="BLACK",
+                      font=("bold"))
+    MButton2 = Button(mWindow, text="View all data", width=10, height=2, command=viewalldata, bg="white", fg="BLACK",
+                      font=("bold"))
+    MExit = Button(mWindow, text="Exit", width=10, height=2, command=exot, fg="red", bg="black", font=("bold"))
+
+    MLabel1.pack(fill=X, anchor=CENTER)
+    MButton1.pack(side=LEFT, anchor=SW)
+    MButton2.pack(side=RIGHT, anchor=SE)
+    MExit.pack(side=BOTTOM, anchor=S)
+    mWindow.mainloop()
+
+
+def login():
+    root = Toplevel()
+    root.title("Log In")
+    root.configure(bg="white")
+    root.geometry("500x500")
+
+    def abcde():
+        if E1.get() == 'abc' and E2.get() == 'def':
+            messagebox.showinfo("Success", "Logged in")
+            root.destroy()
+            frontpage.destroy()
+            mainPage()
+        else:
+            messagebox.showinfo("Failure", "Incorrect info")
+
+            root.destroy()
+
+    L1 = Label(root, text="User Name", font=("bold"))
+    L1.config(bg="white")
+    E1 = Entry(root, bd=5)
+    L2 = Label(root, text="Password", font=("bold"))
+    L2.config(bg="white")
+    E2 = Entry(root, bd=5, show='*')
+    B1 = Button(root, text="Log In", width=10, height=1, command=abcde, font=("bold"))
+    B2 = Button(root, text="Exit", width=10, height=1, command=root.destroy, fg="red", bg="black", font=("bold"))
+
+    L1.grid(row=0, column=0, padx=100, pady=100)
+    E1.grid(row=0, column=1, pady=10, columnspan=2)
+    L2.grid(row=1, column=0, pady=50)
+    E2.grid(row=1, column=1, pady=50)
+    B1.grid(row=3, column=0, pady=10)
+    B2.grid(row=3, column=1, pady=10)
+
+    root.mainloop()
+
+
+frontpage = Tk()
+frontpage.geometry("500x500")
+frontpage.title("Start Page")
+B = Label(frontpage, text="Welcome to football database", font=("times", 16, "bold"), fg="red").pack()
+from PIL import Image, ImageTk
+
+image = Image.open('ab.jpg')
+photo_image = ImageTk.PhotoImage(image)
+label = Label(frontpage, image=photo_image)
+label.pack()
+button1 = Button(frontpage, text="Start", width=20, height=2, command=login, bg="white", fg="BLACK", font=("bold"))
+button2 = Button(frontpage, text="Exit", width=20, height=2, command=exot, fg="red", bg="black", font=("bold"))
+# B.pack(fill=X,anchor=CENTER)
+button1.pack(side=LEFT, anchor=SW)
+button2.pack(side=RIGHT, anchor=SE)
+# frontpage.iconify()
+
+frontpage.mainloop()
