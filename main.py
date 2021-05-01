@@ -146,4 +146,50 @@ def insertAgent():
     agentWindow.mainloop()
 
 
+# insert into nationals
+def insertNational():
+    def saveNational():
+        cursor.execute('INSERT INTO NATIONALS VALUES(?,?,?,?)',
+                       (nEntry0.get(), nEntry1.get(), nEntry2.get(), nEntry3.get()))
+        conn.commit()
+        nationalWindow.destroy()
+        messagebox.showinfo("Success!", "Insertion successful!")
+        ()
+
+    nationalWindow = Tk()
+    nationalWindow.title("Insert National Team data")
+    nationalWindow.geometry("750x750")
+    nationalLabel = Label(nationalWindow, text="Enter National Team details:", anchor=CENTER,
+                          font=("helvetica", 25, "bold"))
+    nationalInsert = Button(nationalWindow, text="INSERT", width=20, height=2, command=saveNational, bg="white",
+                            fg="BLACK", font=("bold"))
+
+    nationalExit = Button(nationalWindow, text="BACK", width=20, height=2, command=nationalWindow.destroy, fg="red",
+                          bg="black", font=("bold"))
+
+    nLabel0 = Label(nationalWindow, text="Nation", fg="red", font=("bold"))
+    nLabel1 = Label(nationalWindow, text="Manager", fg="red", font=("bold"))
+    nLabel2 = Label(nationalWindow, text="World Cups won", fg="red", font=("bold"))
+    nLabel3 = Label(nationalWindow, text="Rating", fg="red", font=("bold"))
+
+    nEntry0 = Entry(nationalWindow, bd=5)
+    nEntry1 = Entry(nationalWindow, bd=5)
+    nEntry2 = Entry(nationalWindow, bd=5)
+    nEntry3 = Entry(nationalWindow, bd=5)
+
+    nLabel0.grid(row=0, column=0, padx=100, pady=10)
+    nLabel1.grid(row=1, column=0, padx=100, pady=10)
+    nLabel2.grid(row=2, column=0, padx=100, pady=10)
+    nLabel3.grid(row=3, column=0, padx=100, pady=10)
+
+    nEntry0.grid(row=0, column=1, pady=10)
+    nEntry1.grid(row=1, column=1, pady=10)
+    nEntry2.grid(row=2, column=1, pady=10)
+    nEntry3.grid(row=3, column=1, pady=10)
+
+    nationalInsert.grid(row=4, column=0, pady=50)
+    nationalExit.grid(row=4, column=1, padx=50, pady=50, columnspan=2)
+
+    nationalWindow.mainloop()
+
 
