@@ -279,11 +279,209 @@ def insertData():
     insertWindow.mainloop()
 
 
+# defining view data window
+def viewalldata():
+    def viewNation():
+        def allNation():
+            class ScrolledFrame(Frame):
+
+                def __init__(self, parent, vertical=True, horizontal=False):
+                    super().__init__(parent)
+
+                    # self._canvas = tk.Canvas(self)
+                    self._canvas = Canvas(self, height=700, width=1200)
+                    self._canvas.grid(row=0, column=0)
+
+                    self._vertical_bar = Scrollbar(self, orient="vertical", command=self._canvas.yview)
+                    if vertical:
+                        self._vertical_bar.grid(row=0, column=1, sticky="ns")
+                    self._canvas.configure(yscrollcommand=self._vertical_bar.set)
+
+                    self._horizontal_bar = Scrollbar(self, orient="horizontal", command=self._canvas.xview)
+                    if horizontal:
+                        self._horizontal_bar.grid(row=1, column=0, sticky="we")
+                    self._canvas.configure(xscrollcommand=self._horizontal_bar.set)
+
+                    self.frame = Frame(self._canvas)
+                    self._canvas.create_window((0, 0), window=self.frame, anchor="nw")
+
+                    self.frame.bind("<Configure>", self.resize)
+
+                def resize(self, event=None):
+                    self._canvas.configure(scrollregion=self._canvas.bbox("all"))
+
+            # --- functions ---
+
+            def display_nation(master, data):
+
+                headers = [
+                    ("Nation", 10),
+                    ("Manager", 10),
+                    ("World Cups Won", 10),
+                    ("Rating", 10),
+                ]
+
+                # create row with headers
+                for col, (header, size) in enumerate(headers):
+                    l = Label(master, text=header, width=size, fg="red", font=("helvetica", 25, "bold"))
+                    l.grid(row=0, column=col)
+
+                # create rows with players
+                for row, nation in enumerate(data, 1):
+                    for col in range(4):
+                        l = Label(master, text=nation[col], font=("bold"))
+                        l.grid(row=row, column=col)
+
+            # --- main ---
+
+            # - create random data for test -
+
+            # import random
+            # import string
+
+            # data = []
+            # for rows in range(20):
+            #    row = []
+            #    for cols in range(9):
+            #        row.append(random.choice(string.ascii_letters))
+            #    data.append(row)
+
+            # - start -
+
+            root = Tk()
+
+            # ---
+
+            # create scrolled frame with vertical and horizontal scrollbar
+            sf = ScrolledFrame(root, True, True)
+            sf.pack()
+
+            # you  have to use `sf.frame` as parent for widgets
+            cursor.execute("SELECT * from NATIONALS order by nation")
+            data = cursor.fetchall()
+
+            display_nation(sf.frame, data)
+
+            root.mainloop()
+
+        def displayNation(data):
+            master = Tk()
+            master.geometry('500x500')
+            master.title('All Nations')
+            Label1 = Label(master, text="Nation", width=10, fg="red", font=("helvetica", 25, "bold"))
+            Label1.grid(row=0, column=0)
+            Label2 = Label(master, text="Manager", width=10, fg="red", font=("helvetica", 25, "bold"))
+            Label2.grid(row=0, column=1)
+            Label3 = Label(master, text="World Cups Won", width=10, fg="red", font=("helvetica", 25, "bold"))
+            Label3.grid(row=0, column=2)
+            Label4 = Label(master, text="Rating", width=10, fg="red", font=("helvetica", 25, "bold"))
+            Label4.grid(row=0, column=3)
+
+            for index, dat in enumerate(data):
+                Label(master, text=dat[0], font=("bold")).grid(row=index + 1, column=0)
+                Label(master, text=dat[1], font=("bold")).grid(row=index + 1, column=1)
+                Label(master, text=dat[2], font=("bold")).grid(row=index + 1, column=2)
+                Label(master, text=dat[3], font=("bold")).grid(row=index + 1, column=3)
+
+        def nameNation():
+            def searchName3():
+                cursor.execute('select * from  NATIONALS  where Nation  like ?', (nEntry.get() + '%',))
+                data = cursor.fetchall()
+                displayNation(data)
+
+            name = Tk()
+            name.title("Search Nation name")
+            name.geometry("750x750")
+            nameLabel = Label(name, text="Enter a Nation Name", anchor=CENTER, font=("helvetica", 25, "bold"))
+            name1 = Label(name, text="Nation Name", font=("bold"))
+            name1.grid(row=2, column=0, padx=100, pady=20)
+            nEntry = Entry(name, bd=5)
+            nEntry.grid(row=2, column=2, pady=20)
+            print(nEntry.get())
+            nameSearch = Button(name, text="SEARCH", width=20, height=2, command=searchName3, bg="white", fg="BLACK",
+                                font=("bold"))
+            nameSearch.grid(row=5, column=0, pady=30)
+
+            nameExit = Button(name, text="BACK", width=20, height=2, command=name.destroy, fg="red", bg="black",
+                              font=("bold"))
+            nameExit.grid(row=5, column=2, padx=50, pady=30, columnspan=2)
+
+            name.mainloop()
+
+        def manNation():
+            def searchManager():
+                cursor.execute('select * from  NATIONALS  where MANAGER  like ?', (nEntry.get() + '%',))
+                data = cursor.fetchall()
+                displayNation(data)
+
+            name = Tk()
+            name.title("Search Nation name")
+            name.geometry("750x750")
+            nameLabel = Label(name, text="Enter Manager", anchor=CENTER, font=(None, 20, "bold"))
+            name1 = Label(name, text="Manager", font=("bold"))
+            name1.grid(row=2, column=0, padx=100, pady=20)
+            nEntry = Entry(name, bd=5)
+            nEntry.grid(row=2, column=2, pady=20)
+            print(nEntry.get())
+            nameSearch = Button(name, text="SEARCH", width=20, height=2, command=searchManager, bg="white", fg="BLACK",
+                                font=("bold"))
+            nameSearch.grid(row=5, column=0, pady=30)
+
+            nameExit = Button(name, text="BACK", width=20, height=2, command=name.destroy, fg="red", bg="black",
+                              font=("bold"))
+            nameExit.grid(row=5, column=2, padx=50, pady=30, columnspan=2)
+
+            name.mainloop()
+
+        def ratingNation():
+            def searchRating():
+                cursor.execute('select * from  NATIONALS  where RATING BETWEEN ? AND ?', (nEntry1.get(), nEntryy.get()))
+                data = cursor.fetchall()
+                displayNation(data)
+
+            name = Tk()
+            name.title("Search by rating")
+            name.geometry("750x750")
+            nameLabel = Label(name, text="Rating of NAtion", anchor=CENTER, font=("helvetica", 25, "bold"))
+            name1 = Label(name, text="Minimum", fg="red", font=("bold"))
+            name1.grid(row=2, column=0, padx=100, pady=20)
+            name2 = Label(name, text="Maximum", fg="red", font=("bold"))
+            name2.grid(row=3, column=0, padx=100, pady=20)
+            nEntry = Entry(name, bd=5)
+            nEntry.grid(row=2, column=2, pady=20)
+            nEntryy = Entry(name, bd=5)
+            nEntryy.grid(row=3, column=2, pady=20)
+            nameSearch = Button(name, text="SEARCH", width=20, height=2, command=searchRating, bg="white", fg="BLACK",
+                                font=("bold"))
+            nameSearch.grid(row=5, column=0, pady=30)
+            nameExit = Button(name, text="BACK", width=20, height=2, command=name.destroy, fg="red", bg="black",
+                              font=("bold"))
+            nameExit.grid(row=5, column=2, padx=50, pady=30, columnspan=2)
+
+            name.mainloop()
+
+        # defining viewing window
+        Nation = Tk()
+        Nation.title("Search Nation")
+        Nation.geometry("750x750")
+        viewLabel = Label(Nation, text="Which data?", anchor=CENTER, font=(None, 20, "bold")).pack()
+        NationButton1 = Button(Nation, text="ALL", width=20, height=2, command=allNation, bg="white", fg="BLACK",
+                               font=("bold")).pack(anchor=CENTER, pady=25)
+        NationButton2 = Button(Nation, text="Nation Name", width=20, height=2, command=nameNation, bg="white",
+                               fg="BLACK", font=("bold")).pack(anchor=CENTER, pady=25)
+        NationButton3 = Button(Nation, text="Manager", width=20, height=2, command=manNation, bg="white", fg="BLACK",
+                               font=("bold")).pack(anchor=CENTER, pady=25)
+        NationButton5 = Button(Nation, text="Rating", width=20, height=2, command=ratingNation, bg="white", fg="BLACK",
+                               font=("bold")).pack(anchor=CENTER, pady=25)
+        NationExit = Button(Nation, text="BACK", width=20, height=2, command=Nation.destroy, fg="red", bg="black",
+                            font=("bold")).pack(anchor=CENTER, pady=25)
+
+
 def mainPage():
     mWindow = Tk()
     mWindow.configure(background="white")
     mWindow.title("Choose option")
-    mWindow.geometry("750x750")
+    mWindow.geometry("550x500")
     MLabel1 = Label(mWindow, text="What would you like to do?", anchor=CENTER, font=("helvetica", 25, "bold"))
     MButton1 = Button(mWindow, text="Insert data", width=10, height=2, command=insertData, bg="white", fg="BLACK",
                       font=("bold"))
@@ -292,8 +490,8 @@ def mainPage():
     MExit = Button(mWindow, text="Exit", width=10, height=2, command=exot, fg="red", bg="black", font=("bold"))
 
     MLabel1.pack(fill=X, anchor=CENTER)
-    MButton1.pack(side=LEFT, anchor=SW)
-    MButton2.pack(side=RIGHT, anchor=SE)
+    MButton1.pack(anchor=CENTER, pady=50)
+    MButton2.pack(anchor=CENTER, pady=50)
     MExit.pack(side=BOTTOM, anchor=S)
     mWindow.mainloop()
 
