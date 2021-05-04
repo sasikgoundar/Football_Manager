@@ -715,6 +715,538 @@ def viewalldata():
 
                 name.mainloop()
 
+            def agentPlayer():
+                def searchAgent():
+                    cursor.execute('select * from  Players  where AGENT_NAME LIKE ? ', (nEntry.get() + '%',))
+                    data = cursor.fetchall()
+                    displayPlayer(data)
+
+                name = Tk()
+                name.title("Search Agent")
+                name.geometry("750x750")
+                nameLabel = Label(name, text="Enter Agent", anchor=CENTER, font=("helvetica", 20, "bold"))
+                name1 = Label(name, text="Agent", fg="red", font=("bold"))
+                name1.grid(row=2, column=0, padx=100, pady=20)
+                nEntry = Entry(name, bd=5)
+                nEntry.grid(row=2, column=2, pady=20)
+                print(nEntry.get())
+
+                nameSearch = Button(name, text="SEARCH", width=20, height=2, command=searchAgent, bg="white",
+                                    fg="BLACK", font=("bold"))
+                nameSearch.grid(row=5, column=0, pady=30)
+
+                nameExit = Button(name, text="BACK", width=20, height=2, command=name.destroy, fg="red", bg="black",
+                                  font=("bold"))
+                nameExit.grid(row=5, column=2, padx=50, pady=30, columnspan=2)
+
+                name.mainloop()
+
+            # defining viewing window
+            Player = Tk()
+            Player.geometry("750x750")
+            viewLabel = Label(Player, text="Which data?", anchor=CENTER, font=(None, 20, "bold")).pack()
+            PlayerButton1 = Button(Player, text="ALL", width=20, height=2, command=allPlayer, bg="white", fg="BLACK",
+                                   font=("bold")).pack(anchor=CENTER, pady=15)
+            PlayerButton2 = Button(Player, text="Player Name", width=20, height=2, command=namePlayer, bg="white",
+                                   fg="BLACK", font=("bold")).pack(anchor=CENTER, pady=15)
+            PlayerButton3 = Button(Player, text="Club", width=20, height=2, command=clubPlayer, bg="white", fg="BLACK",
+                                   font=("bold")).pack(anchor=CENTER, pady=15)
+            PlayerButton4 = Button(Player, text="Nation", width=20, height=2, command=nationPlayer, bg="white",
+                                   fg="BLACK", font=("bold")).pack(anchor=CENTER, pady=15)
+            PlayerButton4 = Button(Player, text="Agent", width=20, height=2, command=agentPlayer, bg="white",
+                                   fg="BLACK", font=("bold")).pack(anchor=CENTER, pady=15)
+            PlayerButton6 = Button(Player, text="Rating & Position", width=20, height=2, command=ratingPlayer,
+                                   bg="white", fg="BLACK", font=("bold")).pack(anchor=CENTER, pady=15)
+            PlayerExit = Button(Player, text="BACK", width=20, height=2, command=Player.destroy, fg="red", bg="black",
+                                font=("bold")).pack(anchor=CENTER, pady=15)
+
+        def viewAgent():
+            def ratingAgent():
+                def searchArating():
+                    cursor.execute('select * from agents where rating between ? AND ?', (nEntry.get(), nEntryy.get()))
+                    data = cursor.fetchall()
+                    master = Tk()
+                    master.geometry('500x500')
+                    master.title('AGENTS')
+                    Label1 = Label(master, text="NAME", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=0)
+                    Label2 = Label(master, text="NATIONALITY", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label2.grid(row=0, column=1)
+                    Label3 = Label(master, text="RATING", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label3.grid(row=0, column=2)
+
+                    for index, dat in enumerate(data):
+                        Label(master, text=dat[0], font=("bold")).grid(row=index + 1, column=0)
+                        Label(master, text=dat[1], font=("bold")).grid(row=index + 1, column=1)
+                        Label(master, text=dat[2], font=("bold")).grid(row=index + 1, column=2)
+
+                name = Tk()
+                name.title("Search by rating")
+                name.geometry("750x750")
+                nameLabel = Label(name, text="Rating of the agent", anchor=CENTER, font=("helvetica", 25, "bold"))
+                name1 = Label(name, text="Minimum Rating", fg="red", font=("bold"))
+                name1.grid(row=2, column=0, padx=100, pady=20)
+                name2 = Label(name, text="Maximum Rating", fg="red", font=("bold"))
+                name2.grid(row=3, column=0, padx=100, pady=20)
+                nEntry = Entry(name, bd=5)
+                nEntry.grid(row=2, column=2, pady=20)
+                nEntryy = Entry(name, bd=5)
+                nEntryy.grid(row=3, column=2, pady=20)
+                nameSearch = Button(name, text="SEARCH", width=20, height=2, command=searchArating, bg="white",
+                                    fg="BLACK", font=("bold"))
+                nameSearch.grid(row=5, column=0, pady=30)
+                nameExit = Button(name, text="BACK", width=20, height=2, command=name.destroy, fg="red", bg="black",
+                                  font=("bold"))
+                nameExit.grid(row=5, column=2, padx=50, pady=30, columnspan=2)
+
+                name.mainloop()
+
+            def naAgent():
+                def searchNname():
+                    cursor.execute('select * from agents where nationality  like ? order by name',
+                                   (nEntry.get() + '%',))
+                    data = cursor.fetchall()
+                    master = Tk()
+                    master.geometry('500x500')
+                    master.title('AGENTS')
+                    Label1 = Label(master, text="NAME", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=0)
+                    Label2 = Label(master, text="NATIONALITY", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label2.grid(row=0, column=1)
+                    Label3 = Label(master, text="RATING", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label3.grid(row=0, column=2)
+
+                    for index, dat in enumerate(data):
+                        Label(master, text=dat[0], font=("bold")).grid(row=index + 1, column=0)
+                        Label(master, text=dat[1], font=("bold")).grid(row=index + 1, column=1)
+                        Label(master, text=dat[2], font=("bold")).grid(row=index + 1, column=2)
+
+                name = Tk()
+                name.title("Agent")
+                name.geometry("750x750")
+                nameLabel = Label(name, text="Enter NAtionality", anchor=CENTER, font=("helvetica", 25, "bold"))
+                name1 = Label(name, text="Nationality", fg="red", font=("bold"))
+                name1.grid(row=2, column=0, padx=100, pady=20)
+                nEntry = Entry(name, bd=5)
+                nEntry.grid(row=2, column=2, pady=20)
+                print(nEntry.get())
+                nameSearch = Button(name, text="SEARCH", width=20, height=2, command=searchNname, bg="white",
+                                    fg="BLACK", font=("bold"))
+                nameSearch.grid(row=5, column=0, pady=30)
+
+                nameExit = Button(name, text="BACK", width=20, height=2, command=name.destroy, fg="red", bg="black",
+                                  font=("bold"))
+                nameExit.grid(row=5, column=2, padx=50, pady=30, columnspan=2)
+
+                name.mainloop()
+
+            def nameAgent():
+                def searchAname():
+                    cursor.execute('select * from agents where name  like ? order by name', (nEntry.get() + '%',))
+                    data = cursor.fetchall()
+                    master = Tk()
+                    master.geometry('500x500')
+                    master.title('AGENTS')
+                    Label1 = Label(master, text="NAME", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=0)
+                    Label2 = Label(master, text="NATIONALITY", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label2.grid(row=0, column=1)
+                    Label3 = Label(master, text="RATING", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label3.grid(row=0, column=2)
+
+                    for index, dat in enumerate(data):
+                        Label(master, text=dat[0], font=("bold")).grid(row=index + 1, column=0)
+                        Label(master, text=dat[1], font=("bold")).grid(row=index + 1, column=1)
+                        Label(master, text=dat[2], font=("bold")).grid(row=index + 1, column=2)
+
+                name = Tk()
+                name.title("Agent Name")
+                name.geometry("750x750")
+                nameLabel = Label(name, text="Enter Agent Name", anchor=CENTER, font=('Helvetica', 20, "bold"))
+                name1 = Label(name, text="Agent Name", fg="red", font=("bold"))
+                name1.grid(row=2, column=0, padx=100, pady=20)
+                nEntry = Entry(name, bd=5)
+                nEntry.grid(row=2, column=2, pady=20)
+                print(nEntry.get())
+                nameSearch = Button(name, text="SEARCH", width=20, height=2, command=searchAname, bg="white",
+                                    fg="BLACK", font=("bold"))
+                nameSearch.grid(row=5, column=0, pady=30)
+
+                nameExit = Button(name, text="BACK", width=20, height=2, command=name.destroy, fg="red", bg="black",
+                                  font=("bold"))
+                nameExit.grid(row=5, column=2, padx=50, pady=30, columnspan=2)
+
+                name.mainloop()
+
+            def allAgent():
+                class ScrolledFrame(Frame):
+
+                    def __init__(self, parent, vertical=True, horizontal=False):
+                        super().__init__(parent)
+
+                        # self._canvas = tk.Canvas(self)
+                        self._canvas = Canvas(self, height=700, width=1200)
+                        self._canvas.grid(row=0, column=0)
+
+                        self._vertical_bar = Scrollbar(self, orient="vertical", command=self._canvas.yview)
+                        if vertical:
+                            self._vertical_bar.grid(row=0, column=1, sticky="ns")
+                        self._canvas.configure(yscrollcommand=self._vertical_bar.set)
+
+                        self._horizontal_bar = Scrollbar(self, orient="horizontal", command=self._canvas.xview)
+                        if horizontal:
+                            self._horizontal_bar.grid(row=1, column=0, sticky="we")
+                        self._canvas.configure(xscrollcommand=self._horizontal_bar.set)
+
+                        self.frame = Frame(self._canvas)
+                        self._canvas.create_window((0, 0), window=self.frame, anchor="nw")
+
+                        self.frame.bind("<Configure>", self.resize)
+
+                    def resize(self, event=None):
+                        self._canvas.configure(scrollregion=self._canvas.bbox("all"))
+
+                # --- functions ---
+
+                def display_agents(master, data):
+
+                    headers = [
+                        ("Name", 20),
+                        ("Nationality", 10),
+                        ("Rating", 10),
+                    ]
+
+                    # create row with headers
+                    for col, (header, size) in enumerate(headers):
+                        l = Label(master, text=header, width=size, fg="red", font=('Helvetica', 25, "bold"))
+                        l.grid(row=0, column=col)
+
+                    # create rows with players
+                    for row, agent in enumerate(data, 1):
+                        for col in range(3):
+                            l = Label(master, text=agent[col], font=("bold"))
+                            l.grid(row=row, column=col)
+
+                root = Tk()
+
+                # ---
+
+                # create scrolled frame with vertical and horizontal scrollbar
+                sf = ScrolledFrame(root, True, True)
+                sf.pack()
+
+                # you  have to use `sf.frame` as parent for widgets
+                cursor.execute("SELECT * from AGENTS order by name")
+                data = cursor.fetchall()
+                display_agents(sf.frame, data)
+                root.mainloop()
+
+            Agent = Tk()
+            Agent.title("Agents")
+            Agent.geometry("750x750")
+            viewLabel = Label(Agent, text="Which data?", anchor=CENTER, fg="red", font=("helvetica", 25, "bold")).pack()
+            AgentButton1 = Button(Agent, text="ALL", width=20, height=2, command=allAgent, bg="white", fg="BLACK",
+                                  font=("bold")).pack(anchor=CENTER, pady=25)
+            AgentButton2 = Button(Agent, text="Agent Name", width=20, height=2, command=nameAgent, bg="white",
+                                  fg="BLACK", font=("bold")).pack(anchor=CENTER, pady=25)
+            AgentButton3 = Button(Agent, text="Nationality", width=20, height=2, command=naAgent, bg="white",
+                                  fg="BLACK", font=("bold")).pack(anchor=CENTER, pady=25)
+            AgentButton5 = Button(Agent, text="Rating", width=20, height=2, command=ratingAgent, bg="white", fg="BLACK",
+                                  font=("bold")).pack(anchor=CENTER, pady=25)
+            AgentExit = Button(Agent, text="BACK", width=20, height=2, command=Agent.destroy, fg="red", bg="black",
+                               font=("bold")).pack(anchor=CENTER, pady=25)
+
+        def viewClub():
+            def ratingClub():
+                def searchRating():
+                    cursor.execute('select * from clubs where club_rating between ? AND ?',
+                                   (nEntry.get(), nEntryy.get()))
+                    daata = cursor.fetchall()
+                    master = Tk()
+                    master.geometry('500x500')
+                    master.title('CLUBS')
+                    Label1 = Label(master, text="CLUB ID", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=0)
+                    Label2 = Label(master, text="CLUB NAME", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label2.grid(row=0, column=1)
+                    Label3 = Label(master, text="RATING", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label3.grid(row=0, column=2)
+                    Label1 = Label(master, text="MANAGER", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=3)
+                    Label1 = Label(master, text="CHAIRMAN", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=4)
+                    Label1 = Label(master, text="LEAGUE", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=5)
+                    Label1 = Label(master, text="TITLES", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=6)
+                    Label1 = Label(master, text="YEAR FOUNDED", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=7)
+
+                    for index, dat in enumerate(daata):
+                        Label(master, text=dat[0], font=("bold")).grid(row=index + 1, column=0)
+                        Label(master, text=dat[1], font=("bold")).grid(row=index + 1, column=1)
+                        Label(master, text=dat[2], font=("bold")).grid(row=index + 1, column=2)
+                        Label(master, text=dat[3], font=("bold")).grid(row=index + 1, column=3)
+                        Label(master, text=dat[4], font=("bold")).grid(row=index + 1, column=4)
+                        Label(master, text=dat[5], font=("bold")).grid(row=index + 1, column=5)
+                        Label(master, text=dat[6], font=("bold")).grid(row=index + 1, column=6)
+                        Label(master, text=dat[7], font=("bold")).grid(row=index + 1, column=7)
+
+                name = Tk()
+                name.title("Search by rating")
+                name.geometry("750x750")
+                nameLabel = Label(name, text="Rating of the club", anchor=CENTER, font=("helvetica", 25, "bold"))
+                name1 = Label(name, text="Minimum", fg="red", font=("bold"))
+                name1.grid(row=2, column=0, padx=100, pady=20)
+                name2 = Label(name, text="Maximum", fg="red", font=("bold"))
+                name2.grid(row=3, column=0, padx=100, pady=20)
+                nEntry = Entry(name, bd=5)
+                nEntry.grid(row=2, column=2, pady=20)
+                nEntryy = Entry(name, bd=5)
+                nEntryy.grid(row=3, column=2, pady=20)
+                nameSearch = Button(name, text="SEARCH", width=20, height=2, command=searchRating, bg="white",
+                                    fg="BLACK", font=("bold"))
+                nameSearch.grid(row=5, column=0, pady=30)
+                nameExit = Button(name, text="BACK", width=20, height=2, command=name.destroy, fg="red", bg="black",
+                                  font=("bold"))
+                nameExit.grid(row=5, column=2, padx=50, pady=30, columnspan=2)
+
+                name.mainloop()
+
+            def manClub():
+                def searchMan():
+                    cursor.execute('select * from clubs where club_manager  like ? order by club_name',
+                                   (nEntry.get() + '%',))
+                    daata = cursor.fetchall()
+                    # return cursor.fetchall()
+
+                    master = Tk()
+                    master.geometry('500x500')
+                    master.title('CLUBS')
+                    Label1 = Label(master, text="CLUB ID", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=0)
+                    Label2 = Label(master, text="CLUB NAME", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label2.grid(row=0, column=1)
+                    Label3 = Label(master, text="RATING", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label3.grid(row=0, column=2)
+                    Label1 = Label(master, text="MANAGER", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=3)
+                    Label1 = Label(master, text="CHAIRMAN", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=4)
+                    Label1 = Label(master, text="LEAGUE", width=15, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=5)
+                    Label1 = Label(master, text="TITLES", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=6)
+                    Label1 = Label(master, text="YEAR FOUNDED", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=7)
+
+                    for index, dat in enumerate(daata):
+                        Label(master, text=dat[0], font=("bold")).grid(row=index + 1, column=0)
+                        Label(master, text=dat[1], font=("bold")).grid(row=index + 1, column=1)
+                        Label(master, text=dat[2], font=("bold")).grid(row=index + 1, column=2)
+                        Label(master, text=dat[3], font=("bold")).grid(row=index + 1, column=3)
+                        Label(master, text=dat[4], font=("bold")).grid(row=index + 1, column=4)
+                        Label(master, text=dat[5], font=("bold")).grid(row=index + 1, column=5)
+                        Label(master, text=dat[6], font=("bold")).grid(row=index + 1, column=6)
+                        Label(master, text=dat[7], font=("bold")).grid(row=index + 1, column=7)
+
+                name = Tk()
+                name.title("Search Manager name")
+                name.geometry("750x750")
+                nameLabel = Label(name, text="Enter Manager Name", anchor=CENTER, font=("helvetica", 25, "bold"))
+                name1 = Label(name, text="Manager Name", fg="red", font=("bold"))
+                name1.grid(row=2, column=0, padx=100, pady=20)
+                nEntry = Entry(name, bd=5)
+                nEntry.grid(row=2, column=2, pady=20)
+                print(nEntry.get())
+                nameSearch = Button(name, text="SEARCH", width=20, height=2, command=searchMan, bg="white", fg="BLACK",
+                                    font=("bold"))
+                nameSearch.grid(row=5, column=0, pady=30)
+
+                nameExit = Button(name, text="BACK", width=20, height=2, command=name.destroy, fg="red", bg="black",
+                                  font=("bold"))
+                nameExit.grid(row=5, column=2, padx=50, pady=30, columnspan=2)
+
+                name.mainloop()
+
+            def allClub():
+                class ScrolledFrame(Frame):
+
+                    def __init__(self, parent, vertical=True, horizontal=False):
+                        super().__init__(parent)
+
+                        # self._canvas = tk.Canvas(self)
+                        self._canvas = Canvas(self, height=700, width=1200)
+                        self._canvas.grid(row=0, column=0)
+
+                        self._vertical_bar = Scrollbar(self, orient="vertical", command=self._canvas.yview)
+                        if vertical:
+                            self._vertical_bar.grid(row=0, column=1, sticky="ns")
+                        self._canvas.configure(yscrollcommand=self._vertical_bar.set)
+
+                        self._horizontal_bar = Scrollbar(self, orient="horizontal", command=self._canvas.xview)
+                        if horizontal:
+                            self._horizontal_bar.grid(row=1, column=0, sticky="we")
+                        self._canvas.configure(xscrollcommand=self._horizontal_bar.set)
+
+                        self.frame = Frame(self._canvas)
+                        self._canvas.create_window((0, 0), window=self.frame, anchor="nw")
+
+                        self.frame.bind("<Configure>", self.resize)
+
+                    def resize(self, event=None):
+                        self._canvas.configure(scrollregion=self._canvas.bbox("all"))
+
+                # --- functions ---
+
+                def display_clubs(master, data):
+
+                    headers = [
+                        ("Club ID", 10),
+                        ("Club Name", 10),
+                        ("Rating", 10),
+                        ("Manager", 10),
+                        ("Chairman", 10),
+                        ("League", 15),
+                        ("Titles Won", 10),
+                        ("Year founded", 10),
+                    ]
+
+                    # create row with headers
+                    for col, (header, size) in enumerate(headers):
+                        l = Label(master, text=header, width=size, fg="red", font=('Helvetica', 25, "bold"))
+                        l.grid(row=0, column=col)
+
+                    # create rows with players
+                    for row, club in enumerate(data, 8):
+                        for col in range(8):
+                            l = Label(master, text=club[col], font=("bold"))
+                            l.grid(row=row, column=col)
+
+                # --- main ---
+
+                # - create random data for test -
+
+                # import random
+                # import string
+
+                # data = []
+                # for rows in range(20):
+                #    row = []
+                #    for cols in range(9):
+                #        row.append(random.choice(string.ascii_letters))
+                #    data.append(row)
+
+                # - start -
+
+                root = Tk()
+
+                # ---
+
+                # create scrolled frame with vertical and horizontal scrollbar
+                sf = ScrolledFrame(root, True, True)
+                sf.pack()
+
+                # you  have to use `sf.frame` as parent for widgets
+                cursor.execute("SELECT * from CLUBS order by club_name")
+                data = cursor.fetchall()
+
+                display_clubs(sf.frame, data)
+
+                root.mainloop()
+
+            def nameClub():
+
+                def searchName():
+                    cursor.execute('select * from clubs where club_name  like ? order by club_name',
+                                   (nEntry.get() + '%',))
+                    dataa = cursor.fetchall()
+                    names = Tk()
+                    names.geometry('500x500')
+                    names.title('Search Display')
+                    Label1 = Label(names, text="CLUB ID", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=0)
+                    Label2 = Label(names, text="CLUB Name", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label2.grid(row=0, column=1)
+                    Label3 = Label(names, text="RATING", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label3.grid(row=0, column=2)
+                    Label1 = Label(names, text="MANAGER", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=3)
+                    Label1 = Label(names, text="CHAIRMAN", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=4)
+                    Label1 = Label(names, text="LEAGUE", width=15, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=5)
+                    Label1 = Label(names, text="TITLES", width=10, fg="red", font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=6)
+                    Label1 = Label(names, text="YEAR FOUNDED", fg="red", width=10, font=('Helvetica', 25, "bold"))
+                    Label1.grid(row=0, column=7)
+
+                    for index, dat in enumerate(dataa):
+                        Label(names, text=dat[0], font=("bold")).grid(row=index + 1, column=0)
+                        Label(names, text=dat[1], font=("bold")).grid(row=index + 1, column=1)
+                        Label(names, text=dat[2], font=("bold")).grid(row=index + 1, column=2)
+                        Label(names, text=dat[3], font=("bold")).grid(row=index + 1, column=3)
+                        Label(names, text=dat[4], font=("bold")).grid(row=index + 1, column=4)
+                        Label(names, text=dat[5], font=("bold")).grid(row=index + 1, column=5)
+                        Label(names, text=dat[6], font=("bold")).grid(row=index + 1, column=6)
+                        Label(names, text=dat[7], font=("bold")).grid(row=index + 1, column=7)
+
+                name = Tk()
+                name.title("Search Club name")
+                name.geometry("550x550")
+                nameLabel = Label(name, text="Enter a Club Name", anchor=CENTER, font=('Helvetica', 25, "bold"))
+                name1 = Label(name, text="Club Name", fg="red", font=("bold"))
+                name1.grid(row=2, column=0, padx=100, pady=20)
+                nEntry = Entry(name, bd=5)
+                nEntry.grid(row=2, column=2, pady=20)
+                print(nEntry.get())
+                nameSearch = Button(name, text="SEARCH", width=20, height=2, command=searchName, bg="white", fg="BLACK",
+                                    font=("bold"))
+                nameSearch.grid(row=5, column=0, pady=30)
+
+                nameExit = Button(name, text="BACK", width=20, height=2, command=name.destroy, fg="red", bg="black",
+                                  font=("bold"))
+                nameExit.grid(row=5, column=2, padx=50, pady=30, columnspan=2)
+
+                name.mainloop()
+
+            # defining viewing window
+            club = Tk()
+            club.geometry("750x750")
+            viewLabel = Label(club, text="Which data?", anchor=CENTER, font=("helvetica", 25, "bold")).pack()
+            clubButton1 = Button(club, text="ALL", width=20, height=2, command=allClub, bg="white", fg="BLACK",
+                                 font=("bold")).pack(anchor=CENTER, pady=25)
+            clubButton2 = Button(club, text="Club Name", width=20, height=2, command=nameClub, bg="white", fg="BLACK",
+                                 font=("bold")).pack(anchor=CENTER, pady=25)
+            clubButton3 = Button(club, text="Manager", width=20, height=2, command=manClub, bg="white", fg="BLACK",
+                                 font=("bold")).pack(anchor=CENTER, pady=25)
+            clubButton5 = Button(club, text="Rating", width=20, height=2, command=ratingClub, bg="white", fg="BLACK",
+                                 font=("bold")).pack(anchor=CENTER, pady=25)
+            clubExit = Button(club, text="BACK", width=20, height=2, command=club.destroy, fg="red", bg="black",
+                              font=("bold")).pack(anchor=CENTER, pady=25)
+
+        viewWindow = Tk()
+        viewWindow.title("view data")
+        viewWindow.geometry("600x600")
+        viewLabel = Label(viewWindow, text="Which data to look into?", anchor=CENTER, font=('Helvetica', 25, "bold"))
+        viewButton1 = Button(viewWindow, text="CLUBS", width=20, height=2, command=viewClub, bg="white", fg="BLACK",
+                             font=("bold"))
+        viewButton2 = Button(viewWindow, text="AGENTS", width=20, height=2, command=viewAgent, bg="white", fg="BLACK",
+                             font=("bold"))
+        viewButton3 = Button(viewWindow, text="NATIONAL TEAM", width=20, height=2, bg="white", fg="BLACK",
+                             font=("bold"), command=viewNation)
+        viewButton4 = Button(viewWindow, text="PLAYERS", width=20, height=2, bg="white", fg="BLACK", font=("bold"),
+                             command=viewPlayer)
+        viewExit = Button(viewWindow, text="BACK", width=20, height=2, command=viewWindow.destroy, bg="black", fg="red",
+                          font=("bold"))
+
+        viewLabel.pack(fill=X, anchor=CENTER)
+        viewButton1.pack(anchor=CENTER, pady=25)
+        viewButton2.pack(anchor=CENTER, pady=25)
+        viewButton3.pack(anchor=CENTER, pady=25)
+        viewButton4.pack(anchor=CENTER, pady=25)
+        viewExit.pack()
+
 
 def mainPage():
     mWindow = Tk()
